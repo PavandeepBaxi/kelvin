@@ -1,0 +1,9 @@
+{{ range site.Data.quizzes }}
+  {{ $page := dict
+    "path"   .id
+    "title"  .pub
+    "kind"   "page"
+    "params" .
+  }}
+  {{ $.AddPage $page }}
+{{ end }}

@@ -1,0 +1,37 @@
+[
+  {
+    "id": "test-tavern-tuesday",
+    "pub": "The Test Tavern",
+    "address": "1 Example Street, Glasgow G1 1AA",
+    "area": "City Centre",
+    "lat": 55.8642,
+    "lng": -4.2518,
+    "day": "Tuesday",
+    "time": "19:00",
+    "frequency": "weekly",
+    "entryFee": 0,
+    "maxTeamSize": 6,
+    "format": "paper",
+    "prize": "Bar tab for the winning team",
+    "links": [{ "label": "Website", "url": "https://example.com/" }],
+    "lastConfirmed": "2026-10-13",
+    "confirmedBy": "team"
+  },
+  {
+    "id": "sample-arms-thursday",
+    "pub": "The Sample Arms",
+    "address": "2 Example Road, Glasgow G12 8AA",
+    "area": "West End",
+    "lat": 55.874,
+    "lng": -4.293,
+    "day": "Thursday",
+    "time": "20:00",
+    "frequency": "weekly",
+    "entryFee": 2,
+    "entryBasis": "per person",
+    "format": "paper",
+    "prize": "Cash for first and second place",
+    "lastConfirmed": "2026-10-10",
+    "confirmedBy": "organiser"
+  }
+]

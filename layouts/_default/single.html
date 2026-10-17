@@ -1,0 +1,19 @@
+{{ define "main" }}
+  {{ with .Params }}
+    <h1>{{ .pub }}</h1>
+    <p>{{ .day }}s at {{ .time }}, {{ .frequency }} · {{ .area }}</p>
+    <p>{{ .address }}</p>
+    <p>
+      Entry: {{ if eq .entryfee 0 }}Free{{ else }}£{{ .entryfee }} {{ .entrybasis }}{{ end }}
+      {{ with .maxteamsize }} · Teams up to {{ . }}{{ end }}
+    </p>
+    <p>Prize: {{ .prize }}</p>
+    {{ with .links }}
+      <p>
+        {{ range . }}<a href="{{ .url }}" rel="noopener noreferrer">{{ .label }}</a> {{ end }}
+      </p>
+    {{ end }}
+    <p><small>Last confirmed {{ .lastconfirmed }} ({{ .confirmedby }})</small></p>
+  {{ end }}
+  <p><a href="/glasgow/">All Glasgow quizzes</a></p>
+{{ end }}
