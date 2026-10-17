@@ -14,3 +14,6 @@ disableKinds = ["taxonomy", "term", "rss"]
     getenv = ['^HUGO_']   # templates can only read HUGO_* variables
   [security.http]
     urls = ['^$']         # templates can fetch nothing from the internet
+
+[outputs]
+  page = ["html", "calendar"]

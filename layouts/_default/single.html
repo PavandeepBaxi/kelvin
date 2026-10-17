@@ -1,19 +1,61 @@
 {{ define "main" }}
-  {{ with .Params }}
-    <h1>{{ .pub }}</h1>
-    <p>{{ .day }}s at {{ .time }}, {{ .frequency }} · {{ .area }}</p>
-    <p>{{ .address }}</p>
-    <p>
-      Entry: {{ if eq .entryfee 0 }}Free{{ else }}£{{ .entryfee }} {{ .entrybasis }}{{ end }}
-      {{ with .maxteamsize }} · Teams up to {{ . }}{{ end }}
-    </p>
-    <p>Prize: {{ .prize }}</p>
-    {{ with .links }}
-      <p>
-        {{ range . }}<a href="{{ .url }}" rel="noopener noreferrer">{{ .label }}</a> {{ end }}
-      </p>
+  {{ $p := .Params }}
+  {{ $formats := dict "paper" "Played with pen and paper" "app" "Played on your phone" "mixed" "Paper and phone" }}
+  {{ $who := dict "organiser" "the organiser" "team" "the Kelvin team" "community" "quizzers" "submitter" "the person who added it" }}
+  {{ $when := dict "weekly" (printf "Every %s" $p.day) "fortnightly" (printf "Every other %s" $p.day) "monthly" (printf "Monthly, on a %s" $p.day) }}
+  {{ $checked := time $p.lastconfirmed }}
+  {{ $stale := gt (div (now.Sub $checked).Hours 24) 182 }}
+
+  <p class="back"><a href="/glasgow/">‹ All Glasgow quizzes</a></p>
+
+  <article class="sheet sheet-full">
+    <header class="sheet-head">
+      <span class="label">Round</span>
+      <span class="hand day">{{ $p.day }}</span>
+      <span class="hand time">{{ $p.time }}</span>
+    </header>
+    <p class="team" aria-hidden="true">Team name <span class="blank"></span></p>
+
+    <ol class="lines">
+      <li><h1 class="hand pub">{{ $p.pub }}</h1></li>
+      <li>{{ $p.area }}. {{ index $when $p.frequency }}{{ with $p.maxteamsize }}, teams of up to {{ . }}{{ end }}</li>
+      <li>
+        {{- if eq $p.entryfee 0 -}}
+          <strong class="free">Free entry</strong>
+        {{- else -}}
+          Entry £{{ if eq (math.Floor $p.entryfee) $p.entryfee }}{{ int $p.entryfee }}{{ else }}{{ printf "%.2f" $p.entryfee }}{{ end }} {{ $p.entrybasis }}
+        {{- end -}}
+      </li>
+      <li>{{ index $formats $p.format }}</li>
+      <li>Prizes: {{ $p.prize }}</li>
+    </ol>
+
+    <p class="address">{{ $p.address }}</p>
+
+    {{ with $p.transport }}
+      <h2 class="section-label">Getting there</h2>
+      <ul class="getting-there">
+        {{ with .subway }}<li><span class="mode subway" aria-hidden="true">S</span><span>{{ .name }} Subway</span><span class="walk">{{ .mins }} min walk</span></li>{{ end }}
+        {{ with .rail }}<li><span class="mode rail" aria-hidden="true">R</span><span>{{ .name }} station</span><span class="walk">{{ .mins }} min walk</span></li>{{ end }}
+        {{ with .bus }}<li><span class="mode bus" aria-hidden="true">B</span><span>{{ .name }} bus stop</span><span class="walk">{{ .mins }} min walk</span></li>{{ end }}
+      </ul>
     {{ end }}
-    <p><small>Last confirmed {{ .lastconfirmed }} ({{ .confirmedby }})</small></p>
-  {{ end }}
-  <p><a href="/glasgow/">All Glasgow quizzes</a></p>
+    <p class="note">Heading home? The Subway runs shorter hours on Sundays, so check SPT's times before you go.</p>
+
+    <div class="actions">
+      <a class="btn primary" href="https://www.google.com/maps/dir/?api=1&destination={{ $p.lat }},{{ $p.lng }}" rel="noopener noreferrer">Directions</a>
+      {{ with .OutputFormats.Get "calendar" }}
+        <a class="btn" href="{{ .RelPermalink }}" download="{{ $p.id }}.ics">Add to calendar</a>
+      {{ end }}
+    </div>
+    <p class="alt-map"><a href="https://maps.apple.com/?daddr={{ $p.lat }},{{ $p.lng }}" rel="noopener noreferrer">Open in Apple Maps</a></p>
+
+    {{ with $p.links }}
+      <p class="links">{{ range . }}<a class="btn" href="{{ .url }}" rel="noopener noreferrer">{{ .label }}</a>{{ end }}</p>
+    {{ end }}
+
+    <p class="checked{{ if $stale }} stale{{ end }}">
+      {{ if $stale }}<span aria-hidden="true">⚠ </span>{{ end }}Confirmed {{ $checked.Format "2 Jan 2006" }} by {{ index $who $p.confirmedby }}{{ if $stale }}, may be out of date{{ end }}
+    </p>
+  </article>
 {{ end }}

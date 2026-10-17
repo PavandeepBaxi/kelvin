@@ -1,0 +1,48 @@
+{{- $p := .Params -}}
+{{- /* Next date this quiz falls on */ -}}
+{{- $next := now -}}
+{{- range seq 0 6 -}}
+  {{- $d := now.AddDate 0 0 . -}}
+  {{- if eq ($d.Format "Monday") $p.day -}}{{- $next = $d -}}{{- break -}}{{- end -}}
+{{- end -}}
+{{- $start := printf "%sT%s00" ($next.Format "20060102") (replace $p.time ":" "") -}}
+{{- $byday := index (dict "Monday" "MO" "Tuesday" "TU" "Wednesday" "WE" "Thursday" "TH" "Friday" "FR" "Saturday" "SA" "Sunday" "SU") $p.day -}}
+{{- /* Clean every field: line breaks become spaces (blocks injection), then \ ; , are escaped as the calendar standard requires */ -}}
+{{- $summary := printf "%s pub quiz" $p.pub | replaceRE "[\r\n]+" " " | replaceRE "([\\\\;,])" "\\$1" -}}
+{{- $location := $p.address | replaceRE "[\r\n]+" " " | replaceRE "([\\\\;,])" "\\$1" -}}
+{{- $desc := printf "Prizes: %s. Check with the pub before you go." $p.prize | replaceRE "[\r\n]+" " " | replaceRE "([\\\\;,])" "\\$1" -}}
+{{- $url := (.OutputFormats.Get "html").Permalink -}}
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Pavan//Kelvin//EN
+CALSCALE:GREGORIAN
+BEGIN:VTIMEZONE
+TZID:Europe/London
+BEGIN:DAYLIGHT
+TZOFFSETFROM:+0000
+TZOFFSETTO:+0100
+TZNAME:BST
+DTSTART:19700329T010000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0000
+TZNAME:GMT
+DTSTART:19701025T020000
+RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:{{ $p.id }}@kelvin
+DTSTAMP:{{ now.UTC.Format "20060102T150405Z" }}
+DTSTART;TZID=Europe/London:{{ $start }}
+DURATION:PT2H
+{{ if eq $p.frequency "weekly" }}RRULE:FREQ=WEEKLY;BYDAY={{ $byday }}
+{{ else if eq $p.frequency "fortnightly" }}RRULE:FREQ=WEEKLY;INTERVAL=2;BYDAY={{ $byday }}
+{{ end }}SUMMARY:{{ $summary }}
+LOCATION:{{ $location }}
+DESCRIPTION:{{ $desc }}
+URL:{{ $url }}
+END:VEVENT
+END:VCALENDAR

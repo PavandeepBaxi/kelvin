@@ -1,0 +1,1 @@
+{{- replace (partial "ics-event.txt" .) "\n" "\r\n" -}}

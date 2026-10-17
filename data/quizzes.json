@@ -15,7 +15,12 @@
     "prize": "Bar tab for the winning team",
     "links": [{ "label": "Website", "url": "https://example.com/" }],
     "lastConfirmed": "2026-10-13",
-    "confirmedBy": "team"
+    "confirmedBy": "team",
+    "transport": {
+      "subway": { "name": "Buchanan Street", "mins": 5 },
+      "rail": { "name": "Queen Street", "mins": 7 },
+      "bus": { "name": "Hope Street", "mins": 1 }
+    }
   },
   {
     "id": "sample-arms-thursday",
@@ -32,7 +37,12 @@
     "format": "paper",
     "prize": "Cash for first and second place",
     "lastConfirmed": "2026-10-10",
-    "confirmedBy": "organiser"
+    "confirmedBy": "organiser",
+    "transport": {
+      "subway": { "name": "Hillhead", "mins": 4 },
+      "rail": { "name": "Partick", "mins": 14 },
+      "bus": { "name": "Byres Road", "mins": 1 }
+    }
   },
   {
     "id": "old-mill-sunday",
@@ -49,6 +59,10 @@
     "format": "mixed",
     "prize": "Cash pot",
     "lastConfirmed": "2026-03-01",
-    "confirmedBy": "community"
+    "confirmedBy": "community",
+    "transport": {
+      "rail": { "name": "Pollokshields West", "mins": 6 },
+      "bus": { "name": "Pollokshaws Road", "mins": 2 }
+    }
   }
 ]

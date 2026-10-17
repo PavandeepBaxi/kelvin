@@ -98,6 +98,34 @@ a { color: var(--biro); }
 .checked { margin: var(--s3) 0 0; font-size: 0.8125rem; color: var(--print-soft); }
 .checked.stale { color: var(--marker); font-weight: 700; }
 
+/* ---------- Quiz page ---------- */
+.back { margin: 0 0 var(--s4); font-weight: 700; }
+.back a { text-decoration: none; }
+.sheet-full .pub { font-size: 2.4rem; }
+.address { margin: var(--s3) 0 0; color: var(--print-soft); font-size: 0.9375rem; }
+.section-label { font-size: 0.8125rem; font-weight: 700; color: var(--print-soft); margin: var(--s6) 0 var(--s2); }
+.getting-there { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s2); font-size: 0.9375rem; }
+.getting-there li { display: flex; align-items: center; gap: var(--s2); }
+.walk { margin-left: auto; color: var(--print-soft); font-size: 0.8125rem; }
+.mode { flex: none; width: 18px; height: 18px; border-radius: 4px; display: inline-grid; place-items: center; font-size: 0.6875rem; font-weight: 700; color: #FFFFFF; }
+.mode.subway { background: #E35205; }
+.mode.rail { background: #4B5563; }
+.mode.bus { background: #1F7A4D; }
+.note { margin: var(--s3) 0 0; padding: var(--s2) var(--s3); border-radius: var(--radius); background: color-mix(in srgb, var(--biro) 8%, var(--paper)); font-size: 0.875rem; }
+.actions { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s2); margin-top: var(--s6); }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 48px; padding: 0 var(--s4);
+  border: 1px solid var(--rule); border-radius: var(--radius);
+  background: var(--paper); color: var(--biro);
+  font-weight: 700; text-decoration: none;
+  transition: background-color 200ms var(--ease);
+}
+.btn:active { background: color-mix(in srgb, var(--biro) 10%, var(--paper)); }
+.btn.primary { background: var(--biro); border-color: var(--biro); color: var(--paper); }
+.alt-map { margin: var(--s2) 0 0; font-size: 0.8125rem; }
+.links { display: flex; flex-wrap: wrap; gap: var(--s2); margin: var(--s4) 0 0; }
+
 /* ---------- Footer ---------- */
 .site-foot { margin-top: var(--s8); padding-top: var(--s4); border-top: 1px solid var(--rule); font-size: 0.8125rem; color: var(--print-soft); }
 .site-foot p { margin: var(--s1) 0; }
