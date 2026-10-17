@@ -131,6 +131,13 @@ a { color: var(--biro); }
 .site-foot p { margin: var(--s1) 0; }
 .saltire { width: 20px; height: 12px; vertical-align: -1px; }
 
+.preview-banner {
+  margin: 0 0 var(--s4); padding: var(--s2) var(--s3);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--marker) 12%, var(--paper));
+  color: var(--print); font-size: 0.875rem; font-weight: 700;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; }
 }
