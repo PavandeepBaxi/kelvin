@@ -1,9 +1,11 @@
+{{ $dayOrder := dict "Monday" 1 "Tuesday" 2 "Wednesday" 3 "Thursday" 4 "Friday" 5 "Saturday" 6 "Sunday" 7 }}
 {{ range site.Data.quizzes }}
-  {{ $page := dict
+  {{ $sortkey := printf "%d-%s" (index $dayOrder .day) .time }}
+  {{ $params := merge . (dict "sortkey" $sortkey) }}
+  {{ $.AddPage (dict
     "path"   .id
     "title"  .pub
     "kind"   "page"
-    "params" .
-  }}
-  {{ $.AddPage $page }}
+    "params" $params
+  ) }}
 {{ end }}

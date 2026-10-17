@@ -33,5 +33,22 @@
     "prize": "Cash for first and second place",
     "lastConfirmed": "2026-10-10",
     "confirmedBy": "organiser"
+  },
+  {
+    "id": "old-mill-sunday",
+    "pub": "The Old Mill",
+    "address": "3 Example Lane, Glasgow G41 1AA",
+    "area": "Southside",
+    "lat": 55.835,
+    "lng": -4.27,
+    "day": "Sunday",
+    "time": "19:30",
+    "frequency": "monthly",
+    "entryFee": 2.5,
+    "entryBasis": "per team",
+    "format": "mixed",
+    "prize": "Cash pot",
+    "lastConfirmed": "2026-03-01",
+    "confirmedBy": "community"
   }
 ]

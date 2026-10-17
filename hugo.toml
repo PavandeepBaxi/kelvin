@@ -1,6 +1,6 @@
 baseURL = "https://example.org/"
 languageCode = "en-gb"
-title = "Project Kelvin"
+title = "Kelvin"
 disableKinds = ["taxonomy", "term", "rss"]
 
 [markup.goldmark.renderer]

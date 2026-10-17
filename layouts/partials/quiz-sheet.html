@@ -1,0 +1,32 @@
+{{ $p := .Params }}
+{{ $formats := dict "paper" "pen and paper" "app" "phone app" "mixed" "paper and app" }}
+{{ $who := dict "organiser" "the organiser" "team" "the Kelvin team" "community" "quizzers" "submitter" "the person who added it" }}
+{{ $checked := time $p.lastconfirmed }}
+{{ $ageDays := div (now.Sub $checked).Hours 24 }}
+{{ $stale := gt $ageDays 182 }}
+
+<article class="sheet">
+  <header class="sheet-head">
+    <span class="label">Round</span>
+    <span class="hand day">{{ $p.day }}</span>
+    <span class="hand time">{{ $p.time }}</span>
+  </header>
+
+  <p class="team" aria-hidden="true">Team name <span class="blank"></span></p>
+
+  <ol class="lines">
+    <li><h2 class="hand pub"><a href="{{ .RelPermalink }}">{{ $p.pub }}</a></h2></li>
+    <li>{{ $p.area }}, {{ $p.frequency }}{{ with $p.maxteamsize }}, teams of up to {{ . }}{{ end }}</li>
+    <li>
+      {{ if eq $p.entryfee 0 }}
+        <strong class="free">Free entry</strong>
+      {{ else }}
+        £{{ if eq (math.Floor $p.entryfee) $p.entryfee }}{{ int $p.entryfee }}{{ else }}{{ printf "%.2f" $p.entryfee }}{{ end }} {{ $p.entrybasis }}
+      {{ end }}, {{ index $formats $p.format }}
+    </li>
+  </ol>
+
+  <p class="checked{{ if $stale }} stale{{ end }}">
+    {{ if $stale }}<span aria-hidden="true">⚠ </span>{{ end }}Confirmed {{ $checked.Format "2 Jan 2006" }} by {{ index $who $p.confirmedby }}{{ if $stale }}, may be out of date{{ end }}
+  </p>
+</article>

@@ -1,10 +1,10 @@
 {{ define "main" }}
-  <h1>{{ .Title }}</h1>
-  <ul>
-    {{ range .Pages }}
-      <li>
-        <a href="{{ .RelPermalink }}">{{ .Title }}</a>,
-        {{ .Params.day }}s at {{ .Params.time }} ({{ .Params.area }})
+  <h1 class="page-title">{{ .Title }}</h1>
+  <p id="status" class="status" aria-live="polite"></p>
+  <ul class="list">
+    {{ range sort .Pages "Params.sortkey" }}
+      <li data-day="{{ .Params.day }}" data-area="{{ .Params.area }}" data-free="{{ if eq .Params.entryfee 0 }}yes{{ else }}no{{ end }}">
+        {{ partial "quiz-sheet.html" . }}
       </li>
     {{ end }}
   </ul>
