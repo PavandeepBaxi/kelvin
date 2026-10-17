@@ -40,8 +40,12 @@
         {{ with .bus }}<li><span class="mode bus" aria-hidden="true">B</span><span>{{ .name }} bus stop</span><span class="walk">{{ .mins }} min walk</span></li>{{ end }}
       </ul>
     {{ end }}
-    <p class="note">Heading home? The Subway runs shorter hours on Sundays, so check SPT's times before you go.</p>
-
+    {{ with $p.transport }}
+      {{ if and (eq $p.day "Sunday") .subway }}
+        <p class="note">Heading home on a Sunday? Check the last Subway on SPT's website before you go.</p>
+      {{ end }}
+    {{ end }}
+    
     <div class="actions">
       <a class="btn primary" href="https://www.google.com/maps/dir/?api=1&destination={{ $p.lat }},{{ $p.lng }}" rel="noopener noreferrer">Directions</a>
       {{ with .OutputFormats.Get "calendar" }}
