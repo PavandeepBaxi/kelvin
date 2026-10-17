@@ -1,11 +1,8 @@
 {{ $dayOrder := dict "Monday" 1 "Tuesday" 2 "Wednesday" 3 "Thursday" 4 "Friday" 5 "Saturday" 6 "Sunday" 7 }}
-{{ range hugo.Data.quizzes }}
-  {{ $sortkey := printf "%d-%s" (index $dayOrder .day) .time }}
-  {{ $params := merge . (dict "sortkey" $sortkey) }}
-  {{ $.AddPage (dict
-    "path"   .id
-    "title"  .pub
-    "kind"   "page"
-    "params" $params
-  ) }}
+{{ range (or hugo.Data.quizzes hugo.Data.sample) }}
+  {{ if not .hold }}
+    {{ $sortkey := printf "%d-%s" (index $dayOrder .day) .time }}
+    {{ $params := merge . (dict "sortkey" $sortkey) }}
+    {{ $.AddPage (dict "path" .id "title" .pub "kind" "page" "params" $params) }}
+  {{ end }}
 {{ end }}
