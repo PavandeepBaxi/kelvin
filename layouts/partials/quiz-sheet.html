@@ -18,11 +18,11 @@
     <li><h2 class="hand pub"><a href="{{ .RelPermalink }}">{{ $p.pub }}</a></h2></li>
     <li>{{ $p.area }}, {{ $p.frequency }}{{ with $p.maxteamsize }}, teams of up to {{ . }}{{ end }}</li>
     <li>
-      {{ if eq $p.entryfee 0 }}
+      {{- if eq $p.entryfee 0 -}}
         <strong class="free">Free entry</strong>
-      {{ else }}
+      {{- else -}}
         £{{ if eq (math.Floor $p.entryfee) $p.entryfee }}{{ int $p.entryfee }}{{ else }}{{ printf "%.2f" $p.entryfee }}{{ end }} {{ $p.entrybasis }}
-      {{ end }}, {{ index $formats $p.format }}
+      {{- end -}}, {{ index $formats $p.format }}
     </li>
   </ol>
 
