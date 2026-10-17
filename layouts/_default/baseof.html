@@ -8,6 +8,9 @@
   {{ $css := resources.Get "css/main.css" | minify | fingerprint "sha384" }}
   <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
   <link rel="preload" href="/fonts/caveat-700.woff2" as="font" type="font/woff2" crossorigin>
+{{ with resources.Get "js/main.js" | js.Build (dict "minify" true "target" "es2018") | fingerprint "sha384" }}
+  <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" defer></script>
+{{ end }}
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>

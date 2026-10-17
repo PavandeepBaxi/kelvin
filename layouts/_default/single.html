@@ -47,6 +47,7 @@
       {{ with .OutputFormats.Get "calendar" }}
         <a class="btn" href="{{ .RelPermalink }}" download="{{ $p.id }}.ics">Add to calendar</a>
       {{ end }}
+            <button class="btn" type="button" data-share hidden>Share</button>
     </div>
     <p class="alt-map"><a href="https://maps.apple.com/?daddr={{ $p.lat }},{{ $p.lng }}" rel="noopener noreferrer">Open in Apple Maps</a></p>
 

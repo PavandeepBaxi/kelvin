@@ -112,7 +112,7 @@ a { color: var(--biro); }
 .mode.rail { background: #4B5563; }
 .mode.bus { background: #1F7A4D; }
 .note { margin: var(--s3) 0 0; padding: var(--s2) var(--s3); border-radius: var(--radius); background: color-mix(in srgb, var(--biro) 8%, var(--paper)); font-size: 0.875rem; }
-.actions { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s2); margin-top: var(--s6); }
+.actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr)); gap: var(--s2); margin-top: var(--s6); }
 .btn {
   display: inline-flex; align-items: center; justify-content: center;
   min-height: 48px; padding: 0 var(--s4);
@@ -134,3 +134,16 @@ a { color: var(--biro); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; }
 }
+
+/* ---------- Filters and share ---------- */
+[hidden] { display: none !important; }
+.filters { display: flex; flex-wrap: wrap; gap: var(--s2); margin: 0 0 var(--s3); }
+.filters button {
+  min-height: 48px; padding: 0 var(--s4);
+  border: 1px solid var(--rule); border-radius: 999px;
+  background: var(--paper); color: var(--print);
+  font: inherit; font-weight: 700; cursor: pointer;
+}
+.filters button[aria-pressed="true"] { background: var(--biro); border-color: var(--biro); color: var(--paper); }
+.filters button:focus-visible, .btn:focus-visible { outline: 3px solid var(--biro); outline-offset: 2px; }
+button.btn { font: inherit; font-weight: 700; cursor: pointer; }

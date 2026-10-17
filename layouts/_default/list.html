@@ -1,9 +1,17 @@
 {{ define "main" }}
   <h1 class="page-title">{{ .Title }}</h1>
-  <p id="status" class="status" aria-live="polite"></p>
-  <ul class="list">
+
+  <div id="filters" class="filters" role="group" aria-label="Filter quizzes" hidden>
+    <button type="button" data-filter="tonight" aria-pressed="false">Tonight</button>
+    <button type="button" data-filter="free" aria-pressed="false">Free</button>
+    <button type="button" data-filter="all" aria-pressed="true">All</button>
+  </div>
+
+  <p id="status" class="status" aria-live="polite">{{ len .Pages }} quizzes listed.</p>
+
+  <ul id="quiz-list" class="list">
     {{ range sort .Pages "Params.sortkey" }}
-      <li data-day="{{ .Params.day }}" data-area="{{ .Params.area }}" data-free="{{ if eq .Params.entryfee 0 }}yes{{ else }}no{{ end }}">
+      <li data-day="{{ .Params.day }}" data-area="{{ .Params.area }}" data-free="{{ eq .Params.entryfee 0 }}">
         {{ partial "quiz-sheet.html" . }}
       </li>
     {{ end }}
